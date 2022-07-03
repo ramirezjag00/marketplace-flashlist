@@ -1,14 +1,11 @@
 import React, { memo, ReactElement, useEffect, useMemo, useRef } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-// import EStyleSheet from 'react-native-extended-stylesheet'
 
 import { FlashList } from '@shopify/flash-list'
 
 import ProductItem from './ProductItem'
 import { COLORS } from '@constants/themes'
 import Product from '@customtypes/product'
-
-const FOOTER_PADDING = 120
 
 interface Props {
   categories: string[]
@@ -17,8 +14,6 @@ interface Props {
 }
 
 type DataItem = Product | string
-
-// const keyExtractor = (_: DataItem, index: number): string => index.toString()
 
 const renderItem = ({ item }: { item: DataItem }): ReactElement => {
   if (typeof item === 'string') {
@@ -31,16 +26,6 @@ const renderItem = ({ item }: { item: DataItem }): ReactElement => {
     return <ProductItem item={item} />
   }
 }
-
-// const sectionHeader = ({
-//   section,
-// }: {
-//   section: SectionListData<Product>
-// }): ReactElement | null => {
-//   return section?.data?.length ? (
-
-//   ) : null
-// }
 
 const Products: React.FC<Props> = (props) => {
   const { activeIndex, categories, products } = props
@@ -80,47 +65,18 @@ const Products: React.FC<Props> = (props) => {
     }
   }, [activeIndex, categories, data])
 
-  // const stickyHeaderIndices = data
-  //   .map((item: DataItem, index: number) => {
-  //     if (typeof item === 'string') {
-  //       return index
-  //     } else {
-  //       return null
-  //     }
-  //   })
-  //   .filter((item) => item !== null) as number[]
-
   const getItemType = (item: DataItem) =>
     typeof item === 'string' ? 'sectionHeader' : 'row'
 
   return (
     <FlashList
       ref={listRef}
-      // ListFooterComponent={cart.length ? <View style={styles.footer} /> : null}
-      // extraData={products}
-      // getItemLayout={(
-      //   _data: SectionListData<Product, DefaultSectionT>[] | null,
-      //   index: number,
-      // ): ItemLayoutType => {
-      //   return {
-      //     length: ITEM_HEIGHT,
-      //     offset: ITEM_HEIGHT * index + ITEM_PADDING,
-      //     index,
-      //   }
-      // }}
-      // initialNumToRender={20}
-      // initialScrollIndex={activeIndex}
-      // keyExtractor={keyExtractor}
-      // renderSectionHeader={sectionHeader}
-      // scrollEventThrottle={16}
       contentContainerStyle={styles.container}
       data={data}
-      extraData={data}
-      // stickySectionHeadersEnabled={false}
       estimatedItemSize={100}
+      extraData={data}
       getItemType={getItemType}
       renderItem={renderItem}
-      // stickyHeaderIndices={stickyHeaderIndices}
     />
   )
 }
@@ -131,19 +87,15 @@ const styles = StyleSheet.create({
   },
   sectionHeaderContainer: {
     backgroundColor: COLORS.wildSand,
-    borderBottomColor: '#7a7a7a',
+    borderBottomColor: COLORS.boulder,
     borderBottomWidth: 1,
     paddingLeft: 20,
   },
   sectionHeaderText: {
     color: COLORS.mineShaft,
     fontSize: 20,
-    // fontFamily: ,
     paddingBottom: 12,
     paddingTop: 12,
-  },
-  footer: {
-    height: FOOTER_PADDING,
   },
 })
 

@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 
-// import { useTypedSelector } from '@utils/store'
-
 import products from '../../../data/products.json'
 import Categories from './components/Categories/Categories'
 import Products from './components/Products/Products'
